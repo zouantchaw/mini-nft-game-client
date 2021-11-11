@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
 
@@ -8,17 +8,37 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
 
-  // checkIfWalletIsConnected will run on component load
-  // Actions
-  const checkIfWalletIsConnected = () => {
-    // Check if we have access to window.ethereum
-    const { ethereum } = window;
+  // State varaible used to store users public wallet
+  const [currentAccount, setCurrentAccount] = useState(null);
 
-    if(!ethereum) {
-      console.log("Make sure you have MetaMask!");
-      return;
-    } else {
-      console.log("We have the ethereum object", ethereum)
+  // checkIfWalletIsConnected will run on component load
+  // async function since this method will take some time
+  const checkIfWalletIsConnected = async () => {
+    try {
+      const { ethereum } = window;
+
+      if (!ethereum) {
+        console.log("Make sure you have MetaMask!");
+        return;
+      } else {
+        console.log("We have the ethereum object", ethereum);
+      }
+
+      // Check if we are authorized to access the users wallet
+      const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+      // User can have multiple authorized accounts
+      // Grab the first address present
+      if (accounts.length !== 0) {
+        console.log(`All accounts: ${accounts}`)
+        const account = accounts[0];
+        console.log("Found an authorized account:", account);
+      } else {
+        console.log("No authorized account found");
+      }
+
+    } catch (error) {
+      console.log(error)
     }
   }
 
