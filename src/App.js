@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
 
@@ -7,6 +7,26 @@ const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
+
+  // checkIfWalletIsConnected will run on component load
+  // Actions
+  const checkIfWalletIsConnected = () => {
+    // Check if we have access to window.ethereum
+    const { ethereum } = window;
+
+    if(!ethereum) {
+      console.log("Make sure you have MetaMask!");
+      return;
+    } else {
+      console.log("We have the ethereum object", ethereum)
+    }
+  }
+
+  // invokes checkIfWalletIsConnected on page load
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, []);
+
   return (
     <div className="App">
       <div className="container">
