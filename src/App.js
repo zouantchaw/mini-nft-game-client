@@ -74,7 +74,7 @@ const App = () => {
       <div className="container">
         <div className="header-container">
           <p className="header gradient-text">⚔️ Metaverse Slayer ⚔️</p>
-          <p className="sub-text">Team up to protect the Metaverse!</p>
+          <p className="sub-text">NFT Team Battles</p>
           <div className="connect-wallet-container">
             <img
               src="https://64.media.tumblr.com/tumblr_mbia5vdmRd1r1mkubo1_500.gifv"
