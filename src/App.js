@@ -58,7 +58,7 @@ const App = () => {
       // Prints out public address after authorizing metamask
       console.log('Connected', accounts[0]);
       setCurrentAccount(accounts[0]);
-      
+
     } catch (error) {
       console.log(error)
     }
@@ -80,9 +80,22 @@ const App = () => {
               src="https://64.media.tumblr.com/tumblr_mbia5vdmRd1r1mkubo1_500.gifv"
               alt="Monty Python Gif"
             />
+            {
+              // Button that user will use to trigger wallet connect
+            }
+
+            <button
+              className="cta-button connect-wallet-button"
+              onClick={connectWalletAction}
+            >
+              Connect Wallet To Get Started
+            </button>
+
           </div>
         </div>
-        <div className="footer-container">
+        {
+          /*
+          <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
           <a
             className="footer-text"
@@ -91,6 +104,8 @@ const App = () => {
             rel="noreferrer"
           >{`built with @${TWITTER_HANDLE}`}</a>
         </div>
+          */
+        }
       </div>
     </div>
   );
