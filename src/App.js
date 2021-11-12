@@ -73,11 +73,11 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="header-container">
-          <p className="header gradient-text">⚔️ Metaverse Slayer ⚔️</p>
-          <p className="sub-text">NFT Team Battles</p>
+          <p className="header gradient-text">🤬 Angry Pep 🤬</p>
+          <p className="sub-text">Team up to defeat the Pep Guardiola⚔️</p>
           <div className="connect-wallet-container">
             <img
-              src="https://64.media.tumblr.com/tumblr_mbia5vdmRd1r1mkubo1_500.gifv"
+              src="https://i.gifer.com/origin/b8/b89f2f687c9cbdf204559638e5ebcbb7.gif"
               alt="Monty Python Gif"
             />
             {
