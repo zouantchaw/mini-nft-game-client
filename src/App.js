@@ -42,6 +42,28 @@ const App = () => {
     }
   }
 
+  // connect wallet method
+  const connectWalletAction = async () => {
+    try {
+      const { ethereum } = window;
+
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+
+      // method that requests access to account
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+
+      // Prints out public address after authorizing metamask
+      console.log('Connected', accounts[0]);
+      setCurrentAccount(accounts[0]);
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // invokes checkIfWalletIsConnected on page load
   useEffect(() => {
     checkIfWalletIsConnected();
