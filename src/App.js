@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
+import SelectCharacter from './Components/SelectCharacter'
 
 // Constants
 const TWITTER_HANDLE = '_buildspace';
@@ -10,6 +11,9 @@ const App = () => {
 
   // State varaible used to store users public wallet
   const [currentAccount, setCurrentAccount] = useState(null);
+
+  // State variable used to store users character NFT
+  const [characterNFT, setCharacterNFT] = useState(null);
 
   // checkIfWalletIsConnected will run on component load
   // async function since this method will take some time
@@ -41,6 +45,33 @@ const App = () => {
       console.log(error)
     }
   }
+
+  // Render Methods
+  const renderContent = () => {
+    // Scenario #1
+    // If user has not connected to app, show connect wallet button
+    if (!currentAccount) {
+      return (
+        <div className="connect-wallet-container">
+            <img
+              src="https://i.gifer.com/origin/b8/b89f2f687c9cbdf204559638e5ebcbb7.gif"
+              alt="Angry Pep Gif"
+            />
+            {
+              // Button that user will use to trigger wallet connect
+            }
+            <button
+              className="cta-button connect-wallet-button"
+              onClick={connectWalletAction}
+            >
+              Connect Wallet To Get Started
+            </button>
+          </div>
+      )
+    } else if (currentAccount && !characterNFT) {
+      return <SelectCharacter setCharacterNFT={setCharacterNFT} />
+    }
+  };
 
   // connect wallet method
   const connectWalletAction = async () => {
@@ -75,23 +106,7 @@ const App = () => {
         <div className="header-container">
           <p className="header gradient-text">🤬 Angry Pep 🤬</p>
           <p className="sub-text">Team up to defeat the Pep Guardiola⚔️</p>
-          <div className="connect-wallet-container">
-            <img
-              src="https://i.gifer.com/origin/b8/b89f2f687c9cbdf204559638e5ebcbb7.gif"
-              alt="Monty Python Gif"
-            />
-            {
-              // Button that user will use to trigger wallet connect
-            }
-
-            <button
-              className="cta-button connect-wallet-button"
-              onClick={connectWalletAction}
-            >
-              Connect Wallet To Get Started
-            </button>
-
-          </div>
+          {renderContent()}
         </div>
         {
           /*
