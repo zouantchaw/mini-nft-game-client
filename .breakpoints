@@ -3,9 +3,17 @@
     "src/Components/SelectCharacter/index.js": [
       {
         "id": "daac99ed-8f8a-4e8e-aced-c086d70b88d6",
-        "line": 13,
-        "version": 319,
-        "index": 263
+        "line": 24,
+        "version": 837,
+        "index": 691
+      }
+    ],
+    "src/constants.js": [
+      {
+        "id": "52181eb4-d858-4d82-ace8-e007a4744506",
+        "line": 10,
+        "version": 487,
+        "index": 368
       }
     ]
   }

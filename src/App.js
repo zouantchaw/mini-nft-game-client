@@ -1,9 +1,10 @@
- import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
 import './App.css';
 import SelectCharacter from './Components/SelectCharacter'
-import { CONTRACT_ADDRESS } from './constants';
+import { CONTRACT_ADDRESS, transformCharacterData } from './constants';
 import myEpicGame from './utils/MyEpicGame.json'
+import { ethers } from 'ethers';
 
 
 // Constants
@@ -56,20 +57,20 @@ const App = () => {
     if (!currentAccount) {
       return (
         <div className="connect-wallet-container">
-            <img
-              src="https://i.gifer.com/origin/b8/b89f2f687c9cbdf204559638e5ebcbb7.gif"
-              alt="Angry Pep Gif"
-            />
-            {
-              // Button that user will use to trigger wallet connect
-            }
-            <button
-              className="cta-button connect-wallet-button"
-              onClick={connectWalletAction}
-            >
-              Connect Wallet To Get Started
+          <img
+            src="https://i.gifer.com/origin/b8/b89f2f687c9cbdf204559638e5ebcbb7.gif"
+            alt="Angry Pep Gif"
+          />
+          {
+            // Button that user will use to trigger wallet connect
+          }
+          <button
+            className="cta-button connect-wallet-button"
+            onClick={connectWalletAction}
+          >
+            Connect Wallet To Get Started
             </button>
-          </div>
+        </div>
       )
     } else if (currentAccount && !characterNFT) {
       return <SelectCharacter setCharacterNFT={setCharacterNFT} />
@@ -102,6 +103,48 @@ const App = () => {
   useEffect(() => {
     checkIfWalletIsConnected();
   }, []);
+
+  // Scenario #2 
+  // If user has connected to app AND does not have a character NFF
+  // show SelectCharacter component
+  useEffect(() => {
+    // fetchNFTMetadata will interact with smart contract
+    const fetchNFTMetadata = async () => {
+      console.log('Checking for the Character NFT on address', currentAccount);
+
+      // "Provider" allows us to communicate with Ethereum nodes
+      // Metamask provides nodes in the background to send/recieve data from deployed contract
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+      // abtraction of ethereum account
+      // Can be used to sign messages and transactions and send signed transactions
+      // to the Ethereum Network to execute state changing operations.
+      const signer = provider.getSigner();
+
+      // Initiate connection to contract
+      // Takes in contract address, ABI, and signer
+      const gameContract = new ethers.Contract(CONTRACT_ADDRESS, myEpicGame.abi, signer);
+
+      const txn = await gameContract.checkIfUserHasNFT();
+      console.log ('txn:', txn)
+
+      // After getting response from contract,
+      // check if there is a minted character NFT
+      if (txn.name) {
+        console.log("User has chracter NFT");
+        setCharacterNFT(transformCharacterData(txn))
+      } else {
+        console.log("No character NFT found");
+      }
+    }
+
+    // fetchNFTMetadata is only invoked when we have a connected wallet
+    if (currentAccount) {
+      console.log('Current Account', currentAccount);
+      fetchNFTMetadata();
+    }
+    // Anytime the value of currentAccount changes, this useEffect will get fired
+  }, [currentAccount]);
 
   return (
     <div className="App">
