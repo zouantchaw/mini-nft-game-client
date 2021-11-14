@@ -2,17 +2,23 @@
   "files": {
     "src/Components/SelectCharacter/index.js": [
       {
+        "id": "0b20d730-be32-44ca-b103-6cf7d4b1bd0e",
+        "line": 22,
+        "version": 2431,
+        "index": 774
+      },
+      {
         "id": "daac99ed-8f8a-4e8e-aced-c086d70b88d6",
-        "line": 24,
-        "version": 837,
-        "index": 691
+        "line": 67,
+        "version": 2431,
+        "index": 2079
       }
     ],
     "src/constants.js": [
       {
         "id": "52181eb4-d858-4d82-ace8-e007a4744506",
         "line": 10,
-        "version": 487,
+        "version": 490,
         "index": 368
       }
     ]
