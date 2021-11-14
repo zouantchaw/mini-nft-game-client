@@ -12,6 +12,20 @@ const SelectCharacter = ({ setCharacterNFT }) => {
   // gameContract allows us to use our contract in different areas
   const [gameContract, setGameContract] = useState(null);
 
+  // Actions
+  const mintCharacterNFTAction = (characterId) => async () => {
+    try {
+      if (gameContract) {
+        console.log('Minting character in progress...');
+        const mintTxn = await gameContract.mintCharacterNFT(characterId);
+        await mintTxn.wait();
+        console.log('mintTxn:', mintTxn);
+      }
+    } catch (error) {
+      console.log('MintChracterAction Error:', error);
+    }
+  };
+
   // Reusable contract object
   useEffect(() => {
     const { ethereum } = window;
@@ -67,7 +81,7 @@ const SelectCharacter = ({ setCharacterNFT }) => {
       <button
         type="button"
         className="character-mint-button"
-        // onClick={mintCharacterNFTAction(index)}
+        onClick={mintCharacterNFTAction(index)}
       >{`Mint ${character.name}`}</button>
     </div>
   ));
