@@ -64,24 +64,26 @@ const SelectCharacter = ({ setCharacterNFT }) => {
       }
     };
 
-      // Callback method that fires when this event is recieved
+      // Callback method that fires anytime a new character NFT is minted
       const onCharacterMint = async (sender, tokenId, characterIndex) => {
         console.log(`CharacterNFTMinted - sender: ${sender} tokenId: ${tokenId.toNumber()} characterIndex: ${characterIndex.toNumber()}`)
-
         // Once minted, fetch metadata from contract and set it in state state for Arena component
         if (gameContract) {
+          // invoke checkIfUserHasNFT on gameContract
           const characterNFT = await gameContract.checkIfUserHasNFT();
           console.log('CharacterNFT: ', characterNFT);
+          // Transform data and update state
           setCharacterNFT(transformCharacterData(characterNFT));
         }
       };
 
       if (gameContract) {
         getCharacters();
-        // NFT minted Listener
+        // Use gameContract object to listen for CharacterNFTMinted invocation from contract
         gameContract.on('CharacterNFTMinted', onCharacterMint)
       }
 
+      // Stop listeing to 'CharacterNFTMinted' event wehn the component is not being used anymore
       return () => {
         // When component unmounts, clean up listener
         if (gameContract) {
