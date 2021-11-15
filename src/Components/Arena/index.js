@@ -12,8 +12,30 @@ const Arena = ({ characterNFT }) => {
   // Boss metadata state
   const [boss, setBoss] = useState(null);
 
+  // State used for animations
+  const [attackState, setAttackState] = useState('');
+
   // Actions 
-  const runAttackAction = async () => {}
+  const runAttackAction = async () => {
+    try {
+      if (gameContract) {
+        setAttackState('attacking');
+        console.log('Attacking boss...');
+
+        // Invoke attackBoss function on contract
+        const attackTxn = await gameContract.attackBoss();
+
+        // Tells UI to wait for transaction to be mined.
+        await attackTxn.wait();
+
+        console.log('attackTxn:', attackTxn);
+        setAttackState('hit');
+      }
+    } catch (error) {
+      console.error('Error attacking boss:', error);
+      setAttackState('');
+    }
+  };
 
   // UseEffects
   useEffect(() => {
@@ -50,7 +72,7 @@ return (
     {/* Boss */}
     {boss && (
       <div className="boss-container">
-        <div className={`boss-content`}>
+        <div className={`boss-content ${attackState}`}>
           <h2>🔥 {boss.name} 🔥</h2>
           <div className="image-content">
             <img src={boss.imageURI} alt={`Boss ${boss.name}`} />
