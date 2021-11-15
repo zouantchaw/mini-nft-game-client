@@ -67,6 +67,7 @@ const SelectCharacter = ({ setCharacterNFT }) => {
       // Callback method that fires anytime a new character NFT is minted
       const onCharacterMint = async (sender, tokenId, characterIndex) => {
         console.log(`CharacterNFTMinted - sender: ${sender} tokenId: ${tokenId.toNumber()} characterIndex: ${characterIndex.toNumber()}`)
+        alert(`Your NFT is all done -- see it here: https://testnets.opensea.io/assets/${gameContract}/${tokenId.toNumber()}`)
         // Once minted, fetch metadata from contract and set it in state state for Arena component
         if (gameContract) {
           // invoke checkIfUserHasNFT on gameContract
