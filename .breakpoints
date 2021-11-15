@@ -3,22 +3,22 @@
     "src/Components/SelectCharacter/index.js": [
       {
         "id": "0b20d730-be32-44ca-b103-6cf7d4b1bd0e",
-        "line": 22,
-        "version": 2431,
-        "index": 774
+        "line": 36,
+        "version": 4428,
+        "index": 1187
       },
       {
         "id": "daac99ed-8f8a-4e8e-aced-c086d70b88d6",
-        "line": 67,
-        "version": 2431,
-        "index": 2079
+        "line": 117,
+        "version": 4428,
+        "index": 3791
       }
     ],
     "src/constants.js": [
       {
         "id": "52181eb4-d858-4d82-ace8-e007a4744506",
         "line": 10,
-        "version": 490,
+        "version": 491,
         "index": 368
       }
     ]
