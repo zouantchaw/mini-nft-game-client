@@ -12,17 +12,26 @@ const SelectCharacter = ({ setCharacterNFT }) => {
   // gameContract allows us to use our contract in different areas
   const [gameContract, setGameContract] = useState(null);
 
+  // Minting state property
+  const [mintingCharacter, setMintingCharacter] = useState(false);
+
   // Actions
   const mintCharacterNFTAction = (characterId) => async () => {
     try {
       if (gameContract) {
+        // Show loading indicator
+        setMintingCharacter(true);
         console.log('Minting character in progress...');
         const mintTxn = await gameContract.mintCharacterNFT(characterId);
         await mintTxn.wait();
         console.log('mintTxn:', mintTxn);
+        // Remove loading indicator when minting is complete
+        setMintingCharacter(false);
       }
     } catch (error) {
-      console.log('MintChracterAction Error:', error);
+      console.warn('MintChracterAction Error:', error);
+      // If there's an error, hide the loading indicator
+      setMintingCharacter(false);
     }
   };
 
@@ -113,18 +122,28 @@ const SelectCharacter = ({ setCharacterNFT }) => {
 
 
 
-  return (
-    <div className="select-character-container">
-      <h2>Mint Your Athlete. Choose wisely.</h2>
+return (
+  <div className="select-character-container">
+    <h2>Mint Your Athlete. Choose wisely.</h2>
+    {characters.length > 0 && (
+      <div className="character-grid">{renderCharacters()}</div>
+    )}
+    {/* Only show our loading state if mintingCharacter is true */}
+    {mintingCharacter && (
+      <div className="loading">
+        <div className="indicator">
+          <LoadingIndicator />
+          <p>Minting In Progress...</p>
+        </div>
+        <img
+          src="https://media2.giphy.com/media/61tYloUgq1eOk/giphy.gif?cid=ecf05e47dg95zbpabxhmhaksvoy8h526f96k4em0ndvx078s&rid=giphy.gif&ct=g"
+          alt="Minting loading indicator"
+        />
+      </div>
+    )}
+  </div>
+);
 
-      {/*Only shows when there are characters in state*/}
-      {
-        characters.length > 0 && (
-          <div className="character-grid">{renderCharacters()}</div>
-        )
-      }
-    </div>
-  );
 };
 
 export default SelectCharacter;
