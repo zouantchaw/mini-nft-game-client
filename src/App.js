@@ -78,7 +78,7 @@ const App = () => {
 
       // If there is a connected wallet and characterNFT show Arena Component
     } else if (currentAccount && characterNFT) {
-      return <Arena characterNFT={characterNFT} />
+      return <Arena characterNFT={characterNFT} setCharacterNFT={setCharacterNFT} />
     }
   };
 

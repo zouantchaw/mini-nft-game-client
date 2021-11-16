@@ -82,13 +82,15 @@ const SelectCharacter = ({ setCharacterNFT }) => {
         getCharacters();
         // Use gameContract object to listen for CharacterNFTMinted invocation from contract
         gameContract.on('CharacterNFTMinted', onCharacterMint)
+        console.log("Listening for 'CharacterNFTMinted' event on contract");
       }
 
-      // Stop listeing to 'CharacterNFTMinted' event wehn the component is not being used anymore
+      // Stop listening to 'CharacterNFTMinted' event wehn the component is not being used anymore
       return () => {
         // When component unmounts, clean up listener
         if (gameContract) {
           gameContract.off('CharacterNFTMinted', onCharacterMint);
+          console.log("Stopped listening for 'CharacterNFTMinted' event on contract");
         }
       };
   }, [gameContract]);
