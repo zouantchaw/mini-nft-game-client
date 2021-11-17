@@ -3,6 +3,8 @@ import './SelectCharacter.css';
 import { ethers } from 'ethers';
 import { CONTRACT_ADDRESS, transformCharacterData } from '../../constants'
 import myEpicGame from '../../utils/MyEpicGame.json';
+import LoadingIndicator from '../LoadingIndicator';
+
 
 
 const SelectCharacter = ({ setCharacterNFT }) => {
