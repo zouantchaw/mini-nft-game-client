@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { CONTRACT_ADDRESS, transformCharacterData } from '../../constants';
 import myEpicGame from '../../utils/MyEpicGame.json';
 import './Arena.css'
+import LoadingIndicator from '../LoadingIndicator'
 
 // Pass in chracterNFT metadata
 const Arena = ({ characterNFT, setCharacterNFT }) => {
@@ -90,7 +91,6 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
     // When component unmounts, clean up listener
     return () => {
       if (gameContract) {
-        debugger
         gameContract.off('AttackComplete', onAttackComplete);
         console.log("Stopped listening for 'AttackComplete' event on contract");
       }
@@ -117,6 +117,12 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
               {`💥 Attack ${boss.name}`}
             </button>
           </div>
+          {attackState === 'attacking' && (
+            <div className="loading-indicator">
+              <LoadingIndicator />
+              <p>Attacking ⚔️</p>
+            </div>
+          )}
         </div>
       )}
 
