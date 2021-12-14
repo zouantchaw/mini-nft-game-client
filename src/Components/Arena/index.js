@@ -16,6 +16,9 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
   // State used for animations
   const [attackState, setAttackState] = useState('');
 
+  // Toast state management
+  const [showToast, setShowToast] = useState(false);
+
   // Actions 
   const runAttackAction = async () => {
     try {
@@ -31,6 +34,12 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
 
         console.log('attackTxn:', attackTxn);
         setAttackState('hit');
+
+        // Set toast to true and then false 5 secs later
+        setShowToast(true);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 5000);
       }
     } catch (error) {
       console.error('Error attacking boss:', error);
@@ -99,6 +108,14 @@ const Arena = ({ characterNFT, setCharacterNFT }) => {
 
   return (
     <div className="arena-container">
+      {/* Toast attack message  */}
+      {boss && characterNFT && (
+        <div id="toast" className={showToast ? 'show' : ''}>
+          <div id="desc">{`💥 ${boss.name} was hit for ${characterNFT.attackDamage}!`}</div>
+          {console.log("Hey")}
+        </div>
+      )}
+
       {/* Boss */}
       {boss && (
         <div className="boss-container">

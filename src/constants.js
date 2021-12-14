@@ -1,4 +1,4 @@
-const CONTRACT_ADDRESS = '0xa5f0f44D4eDD0C0F3F2905FEc5241D48394912f6';
+const CONTRACT_ADDRESS = '0xcf7112f9F522851D89482c519A53E49248D7Dc95';
 
 // Puts data from smart contract into an object that easily accessible by client
 const transformCharacterData = (characterData) => {
